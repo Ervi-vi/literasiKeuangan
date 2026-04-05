@@ -1,0 +1,10 @@
+{
+  "SimpleStorage.sol": {
+    "__sources__": {
+      "SimpleStorage.sol": {
+        "content": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.30;\r\n\r\ncontract SimpleStorage {\r\n\r\n}\r\n\r\ncontract SimpleStorage1 {\r\n\r\n}",
+        "file": "SimpleStorage.sol"
+      }
+    }
+  }
+}
