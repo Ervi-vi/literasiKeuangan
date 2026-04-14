@@ -6,5 +6,13 @@
         "file": "SimpleStorage.sol"
       }
     }
+  },
+  "Sertifikat.sol": {
+    "__sources__": {
+      "Sertifikat.sol": {
+        "content": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.0;\r\n\r\ncontract SertifikatLiterasiKeuangan {\r\n\r\n    address public owner;\r\n    uint public certificateCount = 0;\r\n\r\n    constructor() {\r\n        owner = msg.sender;\r\n    }\r\n\r\n    // Struktur data sertifikat\r\n    struct Certificate {\r\n        uint id;\r\n        string name;\r\n        address participant;\r\n        uint issuedDate;\r\n        bool isValid;\r\n    }\r\n\r\n    // Penyimpanan sertifikat\r\n    mapping(uint => Certificate) public certificates;\r\n\r\n    // Modifier hanya admin\r\n    modifier onlyOwner() {\r\n        require(msg.sender == owner, \"Hanya admin yang bisa melakukan ini\");\r\n        _;\r\n    }\r\n\r\n    // Event (opsional untuk log)\r\n    event CertificateIssued(uint id, string name, address participant);\r\n\r\n    // Fungsi untuk menerbitkan sertifikat\r\n    function issueCertificate(address _participant, string memory _name) public onlyOwner {\r\n        certificateCount++;\r\n\r\n        certificates[certificateCount] = Certificate(\r\n            certificateCount,\r\n            _name,\r\n            _participant,\r\n            block.timestamp,\r\n            true\r\n        );\r\n\r\n        emit CertificateIssued(certificateCount, _name, _participant);\r\n    }\r\n\r\n    // Fungsi untuk verifikasi sertifikat\r\n    function verifyCertificate(uint _id) public view returns (\r\n        string memory name,\r\n        address participant,\r\n        uint issuedDate,\r\n        bool isValid\r\n    ) {\r\n        Certificate memory cert = certificates[_id];\r\n        return (cert.name, cert.participant, cert.issuedDate, cert.isValid);\r\n    }\r\n\r\n    // Fungsi untuk mencabut sertifikat (opsional)\r\n    function revokeCertificate(uint _id) public onlyOwner {\r\n        certificates[_id].isValid = false;\r\n    }\r\n}",
+        "file": "Sertifikat.sol"
+      }
+    }
   }
 }
