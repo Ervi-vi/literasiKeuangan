@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sertifikat Literasi Keuangan</title>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+</head>
+<body>
+  <h1>Sistem Sertifikat Literasi Keuangan</h1>
+
+  <div>
+    <h2>Terbitkan Sertifikat</h2>
+    <input type="text" id="participantAddress" placeholder="Alamat Peserta (0x...)" />
+    <input type="text" id="participantName" placeholder="Nama Peserta" />
+    <button onclick="issueCertificate()">Terbitkan</button>
+  </div>
+
+  <div>
+    <h2>Verifikasi Sertifikat</h2>
+    <input type="text" id="certificateId" placeholder="ID Sertifikat" />
+    <button onclick="verifyCertificate()">Verifikasi</button>
+    <div id="verificationResult"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
