@@ -1,28 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sertifikat Literasi Keuangan</title>
-  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+  <title>Sertifikat Literasi Keuangan (Local)</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #0f172a;
+      color: white;
+      padding: 20px;
+    }
+    .card {
+      background: #1e293b;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 6px;
+      border: none;
+    }
+    button {
+      background: #38bdf8;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-  <h1>Sistem Sertifikat Literasi Keuangan</h1>
 
-  <div>
-    <h2>Terbitkan Sertifikat</h2>
-    <input type="text" id="participantAddress" placeholder="Alamat Peserta (0x...)" />
-    <input type="text" id="participantName" placeholder="Nama Peserta" />
-    <button onclick="issueCertificate()">Terbitkan</button>
-  </div>
+<h2>📜 Sertifikat Literasi Keuangan (Mode Lokal)</h2>
 
-  <div>
-    <h2>Verifikasi Sertifikat</h2>
-    <input type="text" id="certificateId" placeholder="ID Sertifikat" />
-    <button onclick="verifyCertificate()">Verifikasi</button>
-    <div id="verificationResult"></div>
-  </div>
+<div class="card">
+  <h3>➕ Buat Sertifikat</h3>
+  <input id="name" placeholder="Nama Peserta">
+  <button onclick="createCert()">Buat Sertifikat</button>
+</div>
 
-  <script src="script.js"></script>
+<div class="card">
+  <h3>🔍 Verifikasi Sertifikat</h3>
+  <input id="id" placeholder="ID Sertifikat">
+  <button onclick="checkCert()">Cek</button>
+  <pre id="result"></pre>
+</div>
+
+<script>
+  let certs = JSON.parse(localStorage.getItem("certs")) || [];
+
+  function createCert() {
+    const name = document.getElementById("name").value;
+
+    const cert = {
+      id: certs.length + 1,
+      name: name,
+      date: new Date().toLocaleString(),
+      valid: true
+    };
+
+    certs.push(cert);
+    localStorage.setItem("certs", JSON.stringify(certs));
+
+    alert("Sertifikat berhasil dibuat! ID: " + cert.id);
+  }
+
+  function checkCert() {
+    const id = parseInt(document.getElementById("id").value);
+    const cert = certs.find(c => c.id === id);
+
+    if (cert) {
+      document.getElementById("result").innerText =
+        "Nama: " + cert.name +
+        "\nTanggal: " + cert.date +
+        "\nStatus: " + (cert.valid ? "Valid" : "Tidak Valid");
+    } else {
+      document.getElementById("result").innerText = "Sertifikat tidak ditemukan";
+    }
+  }
+</script>
+
 </body>
 </html>
